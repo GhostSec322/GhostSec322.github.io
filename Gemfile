@@ -11,8 +11,4 @@ platforms :mingw, :x64_mingw, :mswin, :jruby do
   gem "tzinfo-data"
 end
 
-<<<<<<< HEAD
 gem 'wdm', '~> 0.2.0', :platforms => [:mingw, :x64_mingw, :mswin]
-=======
-gem "wdm", "~> 0.2.0", :platforms => [:mingw, :x64_mingw, :mswin]
->>>>>>> d51345e29754ba92a0c2fd6534bbd248ff298331
