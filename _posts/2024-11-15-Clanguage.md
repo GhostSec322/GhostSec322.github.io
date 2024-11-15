@@ -1,11 +1,11 @@
 ---
 title: C언어 개념정리
-date: 2025-11-15 20:16:30 +09:00
+date: 2024-11-15 08:16:30
 categories: [Computer Science, Programing]
 tags: [C, Coding]
 ---
 
-# 1. printf scanf
+# 1. printf
 
 ```c
 int  printf (  const  char* format , var1,var2,... ) ;
