@@ -1,6 +1,6 @@
 ---
 title: Computer Science
-date: 2024-11-16 :16:30
+date: 2024-11-15 08:16:30
 categories: [Computer Science, Basics, Decimal, Hexadecimal, Binary]
 tags: [C, Coding]
 ---
