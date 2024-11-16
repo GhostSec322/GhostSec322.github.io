@@ -138,3 +138,22 @@ tags: [C, Coding]
 | ----------- | --------- | --------- | --------- | --------- |
 | 16진수      | 0x67      | 0x45      | 0x23      | 0x01      |
 | 2진수       | 0110 0111 | 0100 0101 | 0010 0011 | 0000 0001 |
+
+```c
+#include <stdio.h>
+
+int main() {
+    unsigned int num = 0x12345678; 
+    unsigned char *byte = (unsigned char*)&num; 
+
+    for (int i = 0; i < sizeof(num); i++) {
+        printf("%02x ", byte[i]);
+    }
+    printf("\n");
+
+
+    return 0;
+}
+
+```
+- 이 예제를 출력해보면 78 56 34 12 가 출력이 됩니다. 이러한 이유가 바로 리틀엔디안 때문입니다.
