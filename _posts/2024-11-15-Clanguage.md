@@ -621,15 +621,15 @@ int main(void) {
 - 포인터는 특정한 변수 자체가 존재하는 메모리 주소의 값을 가집니다.
 - 아래의 그림을 통해 좀더 쉽게 설명을 하면 기존의 a를 이용하여 값을 찾을 수 있지만 포인터 변수인 b를 이용해서도 5라는 값을 찾을 수 있습니다.
 
-  ```mermaid
+```mermaid
   graph LR
       A["int a = 5(주소: 0xAFB03954)"]
       C["int *b=&a(주소: 0xCA29839F)"] --> A
 
-  ```
+```
 
-  - **int \*b=&a;** 처럼선언할때 쓰는 `*`는 포인터 변수임을 알려주기 위한 목적을 가집니다.
-  - 이후에 \*b라고 쓰게 되면 이것은 포인터 변수 b가 가리키는 주소의 값을 의미합니다.
+- **int \*b=&a;** 처럼선언할때 쓰는 `*`는 포인터 변수임을 알려주기 위한 목적을 가집니다.
+- 이후에 \*b라고 쓰게 되면 이것은 포인터 변수 b가 가리키는 주소의 값을 의미합니다.
 
 ### 9-2 C 언어 포인터 관련 연산자
 
@@ -680,7 +680,7 @@ int main(void) {
 
 ---
 
-## 예제 코드
+#### 예제 코드
 
 ```c
 #include <stdio.h>
@@ -720,3 +720,145 @@ int main() {
       return 0;
     }
     ```
+## 10.문자
+- C프로그램의 문자는 아스키 코드를 따릅니다.
+- 아스키 코드는 0~127중의 1바이트로 구성되며 주요 문자를 출력하도록 해줍니다.
+- char형 자체에 숫자를 넣어서 처리를 할수 있습니다.
+- 문자 입출력에서 형식 지정자로 %c를 씁니다.
+  ```c
+  #include <stdio.h>
+  int main(void) {
+  char a = 65;
+  printf("%c\n", a);
+  return 0;
+  }
+  ```
+### 10-2. 문자 입출력 함수
+- 문자는 getchar()을 이용해 입력을 받는 방식을 이용할 수 있습니다.
+- getchar()는 단 하나의 문자를 입력받습니다.
+```c
+#include <stdio.h>
+int main(void) {
+  char a = getchar();
+  printf("%c\n", a);
+  return 0;
+}
+```
+### 10-3. 문자와 버퍼
+- 남아있는 입력 버퍼를 항상 지울 수 있습니다.
+  ```c
+  #include <stdio.h>
+  int main() {
+    int a; char c;
+    scanf("%d", &a);
+    printf("%d\n", a);
+    int temp;
+    // 한 자씩 받아서 파일의 끝이거나 개행 문자를 만나면 입력을 멈추므로 항상 입력 버퍼를 비웁니다.
+    while ((temp = getchar()) != EOF && temp != '\n') { }
+    scanf("%c", &c);
+    printf("%c\n", c);
+
+    return 0;
+    }
+  ```
+### 11. 문자열 
+- 문자열은 말 그대로 문자들의 배열입니다.
+- 문자열은 컴퓨터 메모리 구조상에서 마지막에 NULL을 포함합니다.
+
+  |0|1|2|3|4|5|6|7|8|9|10|11|
+  |-|-|-|-|-|-|-|-|-|-|-|-|
+  |H|E|L|L|O| |W|O|R|L|D|**\0**|
+- NULL값은 문자열의 끝을 알리는 목적으로 사용이 되며 printf함수를 사용하여 문자열을 출력하면 내부적으로 NULL을 만날때 까지 출력을 하게 됩니다.
+### 11-2. 문자열과 포인터
+- 문자열 형태로 포인터를 사용하면 포인터의 특정한 문자열의 주소를 넣게 됩니다.
+- 아래의 코드는 **HELLO WORLD** 문자열을 읽기 전용으로 메모리 공간에 넣은뒤 그 위치를 처리합니다.
+
+```c
+#include 니다. <stdio.h>
+int main(void) {
+  char *a = "Hello World";
+  printf("%s\n", a);
+  return 0;
+}
+```
+- 이러한 문자열을 ‘문자열 리터럴’이라고 말합니다. 이는 컴파일러가 알아서 메모리 주소를 결정합니다.
+- 포인터로 문자열을 선언 했다고 하더라도 기존의 배열처럼 사용할 수 있습니다.
+```c
+#include <stdio.h>
+int main(void) {
+  char *a = "Hello World";
+  printf("%c\n", a[1]);
+  printf("%c\n", a[4]);
+  printf("%c\n", a[8]);
+  return 0;
+}
+```
+### 11-3. 문자열 입출력 함수
+- 문자열 입출력을 수행합니다.
+- scanf 함수는 공백을 만날때까지 입력을 받지만 gets()함수는 공백까지 포함하여 한 줄을 입력받습니다.
+```c
+#include <stdio.h>
+int main(void) {
+  char a[100];
+  gets(a);
+  printf("%s\n", a);
+  return 0;
+}
+```
+### 11-4.문자열 처리를 위한 다양한 함수
+- C언어에서는 문자열 함수는 **<string.h>** 라이브러리에 포함되어 있습니다.
+
+| 함수       | 설명                                                                 |
+|------------|----------------------------------------------------------------------|
+| `strlen()` | 문자열의 길이를 반환합니다.                                          |
+| `strcmp()` | 문자열 1이 문자열 2보다 사전적으로 앞에 있으면 -1, 뒤에 있으면 1을 반환 |
+| `strcpy()` | 문자열을 복사합니다.                                                |
+| `strcat()` | 문자열 1에 문자열 2를 더합니다.                                     |
+| `strstr()` | 문자열 1에 문자열 2가 어떻게 포함되어 있는지를 반환합니다.           |
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    // 1. strlen() 예제
+    char str1[] = "Hello, World!";
+    printf("'%s'의 길이: %zu\n", str1, strlen(str1));
+
+    // 2. strcmp() 예제
+    char str2[] = "Apple";
+    char str3[] = "Banana";
+    int result = strcmp(str2, str3);
+    if (result < 0) {
+        printf("'%s'은(는) '%s'보다 사전적으로 앞에 있습니다.\n", str2, str3);
+    } else if (result > 0) {
+        printf("'%s'은(는) '%s'보다 사전적으로 뒤에 있습니다.\n", str2, str3);
+    } else {
+        printf("'%s'와(과) '%s'은(는) 같습니다.\n", str2, str3);
+    }
+
+    // 3. strcpy() 예제
+    char source[] = "Copy this!";
+    char destination[20];
+    strcpy(destination, source);
+    printf("복사된 문자열: %s\n", destination);
+
+    // 4. strcat() 예제
+    char greeting[20] = "Hello, ";
+    char name[] = "Alice";
+    strcat(greeting, name);
+    printf("결합된 문자열: %s\n", greeting);
+
+    // 5. strstr() 예제
+    char text[] = "Find the needle in the haystack.";
+    char keyword[] = "needle";
+    char *found = strstr(text, keyword);
+    if (found) {
+        printf("'%s'에서 '%s'를 찾았습니다: %s\n", text, keyword, found);
+    } else {
+        printf("'%s'에서 '%s'를 찾을 수 없습니다.\n", text, keyword);
+    }
+
+    return 0;
+}
+
+```
